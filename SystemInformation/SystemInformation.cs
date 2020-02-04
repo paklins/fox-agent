@@ -6,37 +6,14 @@ namespace FoxAgent.SystemInformation
 {
     public class SysInfo
     {
-        public string OSName { get ; private set; }
-        public OSType Type { get; private set;}
-        public string Platform {get; private set; }
-
-        public SysInfo()
+        public static ISystemInformationFactory GetFactory()
         {
-            OSName = RuntimeInformation.OSDescription;
+        #if Windows
+        #elif Linux
+            return new LinuxSystemInformationFactory();
+        #endif
 
-            fillOSType();
-        }
-
-        private void fillOSType()
-        {
-            if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                Type = OSType.Windows;
-            }
-            else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                Type = OSType.Linux;
-            }
-            else if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                Type = OSType.MacOS;
-            }
-            else if(RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD))
-            {
-                Type = OSType.FreeBSD;
-            }
-
-            Platform = Type.GetDescription();
+            return null;
         }
     }
 }

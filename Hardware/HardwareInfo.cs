@@ -4,14 +4,15 @@ namespace FoxAgent.Hardware
 {
     public class HardwareInfo
     {
-        public static IHardwareInfoFactory GetFactory(SysInfo sysInfo)
+        public static IHardwareInfoFactory GetFactory()
         {
-            if(sysInfo.Type.Equals(OSType.Windows))
-            {
+            #if Windows
                 return new WindowsHardwareInfoFactory();
-            }
+            #elif Linux
+                return new LinuxHardwareInfoFactory();
+            #endif
 
-            return new LinuxHardwareInfoFactory();
+            return null;
         }
     }
 }

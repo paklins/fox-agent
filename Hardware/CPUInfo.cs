@@ -18,7 +18,11 @@ namespace FoxAgent.Hardware
 
         protected Dictionary<CPUCacheLevel, uint> cacheSizes = new Dictionary<CPUCacheLevel, uint>();
 
-        public string Identifier { get; protected set; }
+        public uint CPUCount { get; protected set; }
+        public uint ThreadsPerCore { get; protected set; }
+        public uint CoresPerSocket { get; protected set; }
+        public string Flags { get; protected set; }
+
         public int Stepping { get; protected set; }
         public double MHz { get; protected set; }
         public uint CacheLevel1 { get { return GetCacheSize(CPUCacheLevel.Level1); } }
